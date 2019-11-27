@@ -1,4 +1,5 @@
 <template>
+  <!-- Vuetify login page is accessible and cross-browser supported  -->
   <v-app>
     <!-- Components prefaced with `v-` are vuetify components -->
     <v-card width="400" class="mx-auto mt-5">
@@ -10,10 +11,11 @@
           <!-- `mdi-account-circle icon comes from material design icon library auto-available with vuetify` -->
           <v-text-field label="Username" prepend-icon="mdi-account-circle"></v-text-field>
           <v-text-field
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Password"
             prepend-icon="mdi-lock"
-            append-icon="mdi-eye-off"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
           />
         </v-form>
       </v-card-text>
@@ -38,7 +40,8 @@ export default {
   },
 
   data: () => ({
-    //
+    // toggle PW visibilty
+    showPassword: false
   })
 };
 </script>
