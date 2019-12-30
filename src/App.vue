@@ -58,6 +58,8 @@ export default {
   }),
   methods: {
     toggleTheme() {
+      // set the anchor link color for the dark theme
+      this.$vuetify.theme.themes.dark.anchor = "#41B883";
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     }
   }
