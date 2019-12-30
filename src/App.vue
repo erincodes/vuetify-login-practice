@@ -4,8 +4,8 @@
     <v-app-bar app dark color="primary">
       <v-toolbar-title>Vuetify Dashboard</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text rounded>Home</v-btn>
-      <v-btn text rounded>Login</v-btn>
+      <v-btn text rounded to="/">Home</v-btn>
+      <v-btn text rounded to="login">Login</v-btn>
     </v-app-bar>
     <!-- v-content Vuetify component helps with page layout -->
     <v-content>
