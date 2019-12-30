@@ -28,8 +28,12 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    // use anonymous function to import the Login component, so that it only loads when the user hits the route
     component: () => import("../views/Dashboard.vue")
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () => import("../views/Signup.vue")
   }
 ];
 

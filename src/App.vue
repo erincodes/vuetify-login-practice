@@ -53,7 +53,8 @@ export default {
     links: [
       { label: "Home", url: "/" },
       { label: "Login", url: "/login" },
-      { label: "Dashboard", url: "/dashboard" }
+      { label: "Dashboard", url: "/dashboard" },
+      { label: "Sign Up", url: "/signup" }
     ]
   }),
   methods: {
