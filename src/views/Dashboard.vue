@@ -1,19 +1,34 @@
 <template>
-  <div>
+  <v-container>
     <h1>Dashboard</h1>
+    <!-- grid system -->
+    <v-row>
+      <v-col cols="8"></v-col>
+    </v-row>
     <v-data-table
       :headers="headers"
       :items="desserts"
       :items-per-page="5"
       class="elevation-1"
+      multi-sort
+      @click:row="selectRow"
     ></v-data-table>
-  </div>
+    <!-- breakpoint returns boolean if the user's device matches specified screen size and adjusts UI accordingly! -->
+    <v-snackbar v-model="snackbar" :left="$vuetify.breakpoint.lgAndUp">
+      You have selected "{{ currentItem }}"
+      <v-btn color="pink" text @click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
+  </v-container>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      currentItem: "",
+      snackbar: false,
       headers: [
         {
           text: "Dessert (100g serving)",
@@ -110,6 +125,13 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    selectRow(event) {
+      this.snackbar = true;
+      // In table docs, click:row event includes the item for the row, so we can access that "item" here as the dessert name clicked
+      this.currentItem = event.name;
+    }
   }
 };
 </script>
