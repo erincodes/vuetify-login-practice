@@ -11,8 +11,8 @@
         :to="link.url"
         v-for="link in links"
         :key="`${link.label}-header-link`"
-        >{{ link.label }}</v-btn
-      >
+      >{{ link.label }}</v-btn>
+      <v-btn text rounded @click="toggleTheme">Toggle Theme</v-btn>
     </v-app-bar>
     <!-- v-content Vuetify component helps with page layout -->
     <v-content>
@@ -29,8 +29,7 @@
           rounded
           class="my-2"
           :to="link.url"
-          >{{ link.label }}</v-btn
-        >
+        >{{ link.label }}</v-btn>
         <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} —
           <strong>Vuetify Dashboard</strong>
@@ -56,6 +55,11 @@ export default {
       { label: "Login", url: "/login" },
       { label: "Dashboard", url: "/dashboard" }
     ]
-  })
+  }),
+  methods: {
+    toggleTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    }
+  }
 };
 </script>
