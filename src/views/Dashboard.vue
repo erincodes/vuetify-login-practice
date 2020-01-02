@@ -16,10 +16,34 @@
     <!-- breakpoint returns boolean if the user's device matches specified screen size and adjusts UI accordingly! -->
     <v-snackbar v-model="snackbar" :left="$vuetify.breakpoint.lgAndUp">
       You have selected "{{ currentItem }}"
-      <v-btn color="pink" text @click="snackbar = false">
-        Close
-      </v-btn>
+      <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
     </v-snackbar>
+    <v-row id="more-info">
+      <v-col>
+        <h2>More Info:</h2>
+        <p>Bacon ipsum dolor amet jerky meatball hamburger pastrami prosciutto. Pork chislic frankfurter flank bacon rump tongue. Jowl pancetta venison ribeye kevin meatball pork chop jerky beef ribs ball tip short loin turkey. Alcatra sausage brisket meatloaf. Corned beef chuck kevin shoulder frankfurter ham hock hamburger landjaeger short ribs strip steak brisket fatback salami boudin. Beef ribs pork chop tail, picanha rump chicken meatball pork loin shoulder fatback frankfurter andouille tenderloin ham hock brisket.</p>
+        <p>
+          Doner prosciutto jowl pork belly, biltong sausage tenderloin. Shank bacon pig jerky meatball venison hamburger beef ribs t-bone short loin ham hock porchetta pastrami turkey ribeye. Jerky leberkas bresaola alcatra corned beef porchetta brisket. Alcatra meatloaf pork chop, cupim flank spare ribs beef jerky porchetta kevin rump bacon.
+          Ball tip swine chislic strip steak, tongue ham hock cow salami drumstick. Pork loin turkey buffalo hamburger boudin short loin tongue beef ribs. Pancetta fatback meatball venison swine chicken short ribs ribeye tongue. Cow rump pork chop doner meatloaf beef. Biltong brisket jowl sirloin, ham chislic pork chop picanha. Brisket frankfurter salami filet mignon alcatra chislic.
+        </p>
+        <p>Bacon ipsum dolor amet jerky meatball hamburger pastrami prosciutto. Pork chislic frankfurter flank bacon rump tongue. Jowl pancetta venison ribeye kevin meatball pork chop jerky beef ribs ball tip short loin turkey. Alcatra sausage brisket meatloaf. Corned beef chuck kevin shoulder frankfurter ham hock hamburger landjaeger short ribs strip steak brisket fatback salami boudin. Beef ribs pork chop tail, picanha rump chicken meatball pork loin shoulder fatback frankfurter andouille tenderloin ham hock brisket.</p>
+        <!-- Use the intersect observer API -->
+        <p v-intersect="showMoreContent">
+          Doner prosciutto jowl pork belly, biltong sausage tenderloin. Shank bacon pig jerky meatball venison hamburger beef ribs t-bone short loin ham hock porchetta pastrami turkey ribeye. Jerky leberkas bresaola alcatra corned beef porchetta brisket. Alcatra meatloaf pork chop, cupim flank spare ribs beef jerky porchetta kevin rump bacon.
+          Ball tip swine chislic strip steak, tongue ham hock cow salami drumstick. Pork loin turkey buffalo hamburger boudin short loin tongue beef ribs. Pancetta fatback meatball venison swine chicken short ribs ribeye tongue. Cow rump pork chop doner meatloaf beef. Biltong brisket jowl sirloin, ham chislic pork chop picanha. Brisket frankfurter salami filet mignon alcatra chislic.
+        </p>
+      </v-col>
+    </v-row>
+
+    <v-row id="below-the-fold" v-if="loadNewContent">
+      <v-col>
+        <h2>Dynamically Loaded Upon Intersection:</h2>
+        <p>
+          Short ribs cow bresaola, venison andouille strip steak tri-tip prosciutto. Landjaeger biltong picanha, spare ribs chislic tenderloin pancetta turkey. Tenderloin boudin chicken drumstick, tongue beef meatball tri-tip. Ham hock shank hamburger, short ribs turducken cupim alcatra cow capicola. Chicken drumstick frankfurter meatball meatloaf. Pork chop beef kevin shoulder tail tenderloin chicken bacon.
+          Short loin cow biltong, pork chop swine meatloaf jowl ball tip beef prosciutto pastrami porchetta strip steak sausage ham. Swine spare ribs cow short loin. Pancetta beef kevin ribeye cow corned beef short loin drumstick jowl hamburger salami shankle porchetta prosciutto. Pork short ribs meatball flank landjaeger kevin bacon hamburger. Shankle burgdoggen drumstick salami. Tongue pork fatback frankfurter spare ribs filet mignon, rump boudin chislic kielbasa ham hock corned beef. Brisket salami leberkas, sausage landjaeger beef ribs chuck.
+        </p>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -29,6 +53,7 @@ export default {
     return {
       currentItem: "",
       snackbar: false,
+      loadNewContent: false,
       headers: [
         {
           text: "Dessert (100g serving)",
@@ -131,6 +156,11 @@ export default {
       this.snackbar = true;
       // In table docs, click:row event includes the item for the row, so we can access that "item" here as the dessert name clicked
       this.currentItem = event.name;
+    },
+    showMoreContent(entries) {
+      // default JS intersect observer API, one of the args we receive is "entries", which contains an array of the different elements being observed.
+      // console.log(entries[0].isIntersecting);
+      this.loadNewContent = entries[0].isIntersecting;
     }
   }
 };
